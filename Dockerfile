@@ -10,4 +10,4 @@ RUN chmod +x /usr/local/bin/kompose
 RUN adduser -S kompose
 USER kompose
 
-CMD kompose
+ENTRYPOINT kompose
