@@ -1,13 +1,13 @@
 FROM alpine
 MAINTAINER Rob Haswell <rob@cloudfindhq.com>
 
-ENV KOMPOSE_VERSION=v0.1.2
+ENV KOMPOSE_VERSION=v0.6.0
 
-RUN apk add --no-cache curl
-RUN curl -L https://github.com/kubernetes-incubator/kompose/releases/download/${KOMPOSE_VERSION}/kompose_linux-amd64.tar.gz | tar zxO kompose_linux-amd64/kompose > /usr/local/bin/kompose
-RUN chmod +x /usr/local/bin/kompose
+RUN apk update && apk add --no-cache curl \
+ && curl -L https://github.com/kubernetes-incubator/kompose/releases/download/${KOMPOSE_VERSION}/kompose-linux-amd64.tar.gz | tar zxO kompose-linux-amd64 > /usr/local/bin/kompose \
+ && chmod +x /usr/local/bin/kompose \
+ && adduser -S kompose \
+ && apk del curl
 
-RUN adduser -S kompose
 USER kompose
-
 CMD kompose
